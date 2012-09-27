@@ -1,0 +1,3 @@
+module Apian
+  VERSION = "0.0.1"
+end
