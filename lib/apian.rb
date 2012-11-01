@@ -16,6 +16,7 @@ module Apian
 
     module ClassMethods
       def lookup_id_for(api_key)
+        puts api_key
         Rails.cache.fetch "service_id_for #{api_key}" do
           find_by_key(api_key).try(:id)
         end
@@ -25,8 +26,7 @@ module Apian
 
   module ControllerExtensions
     def api_key
-      key = request.headers["X-API-Key"]
-      raise "API Key not provided" if key.blank?
+      request.headers["X-API-Key"] || raise("API Key not provided")
     end
     def forbidden
       self.status = 403
